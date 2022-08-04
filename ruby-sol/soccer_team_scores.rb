@@ -16,15 +16,17 @@ end
 # we don't have to worry about games being in or out of order
 def getNumGames(games)
     teamRecorded = false
-    counter = 0
+    numGames = 0
 
     while !teamRecorded
-        game = games[counter].split(", ")
+        # Get our team names into a readable format
+        game = games[numGames].split(", ")
         team1, team2 = game[0][0...-2], game[1][0...-2]
-        score1, score2 = game[0][-1], game[1][-1]
-        counter += 1
+        numGames += 1
 
-        if $teamStandings.has_key?(team1) or $teamStandings.has_key?(team2)
+        # We break as soon as we hit day two. We know it is day two if we see 
+        # a team for the second time
+        if $teamStandings.has_key?(team1)
             teamRecorded = true
         end
 
@@ -33,7 +35,7 @@ def getNumGames(games)
     end
 
     # (Number of games * 2 teams) / number of teams
-    return counter - 1
+    return numGames - 1
 
 end
 
@@ -46,11 +48,11 @@ def updateStandings(team)
     if $teamStandings[team] > $teamStandings[$topSeeds[0]]
         $topSeeds[1], $topSeeds[2]= $topSeeds[0], $topSeeds[1]
         $topSeeds[0] = team
-        # Beating second
+    # Beating second
     elsif $teamStandings[team] > $teamStandings[$topSeeds[1]] and team != $topSeeds[0]
         $topSeeds[2] = $topSeeds[1]
         $topSeeds[1] = team
-        # Beating third
+    # Beating third
     elsif $teamStandings[team] > $teamStandings[$topSeeds[2]] and team != $topSeeds[0] and team != $topSeeds[1]
         $topSeeds[2] = team
     end

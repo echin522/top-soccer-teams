@@ -35,10 +35,7 @@ output per matchday.
 
 ### Guidelines
 
-This should be implemented in a language with which you are familiar. We would
-prefer that you use ruby, javascript, typescript, or go, if you are
-comfortable doing so. If none of these are comfortable, please choose a
-language that is both comfortable for you and suited to the task.
+This should be implemented in a language with which you are familiar. We would prefer that you use ruby, javascript, typescript, or go, if you are comfortable doing so. If none of these are comfortable, please choose a language that is both comfortable for you and suited to the task.
 
 Your solution should be able to be run (and if applicable, built) from the
 command line. Please include:

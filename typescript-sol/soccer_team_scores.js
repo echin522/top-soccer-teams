@@ -87,8 +87,7 @@ var displayTopTeams = function (day, standings, topTeams) {
 // The main function that counts up the head-to-head standings every match
 var scoreCounter = function (gameData) {
     var games = gameData.split("\n");
-    var standings, numGamesPerDay = getTeamsAndNumGames(games);
-    var numTeams = getNumTeams(standings);
+    var _a = getTeamsAndNumGames(games), standings = _a[0], numGamesPerDay = _a[1];
     var teams = Object.keys(standings);
     var topTeams = [teams[0], teams[1], teams[2]];
     var day = 1;

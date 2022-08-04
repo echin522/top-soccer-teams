@@ -4,14 +4,6 @@ $scoreFile = File.read("sample-input.txt")
 $teamStandings = Hash.new(0)
 $topSeeds = ["", "", ""]
 
-# Sample output should look like:
-    # San Jose Earthquakes: 2
-    # Santa Cruz Slugs: 3
-    # Capitola Seahorses: 5
-    # Aptos FC: 9
-    # Felton Lumberjacks: 7
-    # Monterey United: 6
-
 # If you want to use a different input file, uncomment the following line
 def customInput
     puts "Please input the file path: "
@@ -66,31 +58,31 @@ end
 
 # Helper function to display the head to head standings for a given day
 def displayTopTeams(day, first, second, third)
-    p "Current standings for day #{day}:"
+    puts "Standings for day #{day}:"
     # Three way tie. Do this first since it has to fulfill two conditions
     # Allows the other conditions to be less messy
     if $teamStandings[first] == $teamStandings[second] and $teamStandings[second] == $teamStandings[third]
-        sortPlaces = [$teamStandings[first], $teamStandings[second], $teamStandings[third]].sort
-        p "1st: #{first} #{sortPlaces[0]} pts"
-        p "1st: #{second} #{sortPlaces[1]} pts"
-        p "1st: #{third} #{sortPlaces[2]} pts"
+        sortPlaces = [first, second, third].sort!
+        puts "1st place: #{sortPlaces[0]}, #{$teamStandings[sortPlaces[0]]} pts"
+        puts "1st place: #{sortPlaces[1]}, #{$teamStandings[sortPlaces[1]]} pts"
+        puts "1st place: #{sortPlaces[2]}, #{$teamStandings[sortPlaces[2]]} pts"
     # First and second tie
     elsif $teamStandings[first] == $teamStandings[second]
-        sortPlaces = [$teamStandings[first], $teamStandings[second]].sort
-        p "1st: #{first} #{sortPlaces[0]} pts"
-        p "1st: #{second} #{sortPlaces[1]} pts"
-        p "3rd: #{third} #{$teamStandings[third]} pts"
+        sortPlaces = [first, second].sort!
+        puts "1st place: #{sortPlaces[0]}, #{$teamStandings[sortPlaces[0]]} pts"
+        puts "1st place: #{sortPlaces[1]}, #{$teamStandings[sortPlaces[1]]} pts"
+        puts "3rd place: #{third}, #{$teamStandings[third]} pts"
     # Second and third tie 
     elsif $teamStandings[second] == $teamStandings[third]
-        sortPlaces = [$teamStandings[second], $teamStandings[third]].sort
-        p "1st: #{first} #{$teamStandings[first]} pts"
-        p "3rd: #{second} #{sortPlaces[0]} pts"
-        p "3rd: #{third} #{sortPlaces[1]} pts"
+        sortPlaces = [second, third].sort!
+        puts "1st place: #{first}, #{$teamStandings[first]} pts"
+        puts "3rd place: #{sortPlaces[0]}, #{$teamStandings[sortPlaces[0]]} pts"
+        puts "3rd place: #{sortPlaces[1]}, #{$teamStandings[sortPlaces[1]]} pts"
     # No Ties
     else
-        p "1st: #{first} #{$teamStandings[first]} pts"
-        p "2nd: #{second} #{$teamStandings[second]} pts"
-        p "3rd: #{third} #{$teamStandings[third]} pts"
+        puts "1st place: #{first}, #{$teamStandings[first]} pts"
+        puts "2nd place: #{second}, #{$teamStandings[second]} pts"
+        puts "3rd place: #{third}, #{$teamStandings[third]} pts"
     end
     puts
 end
@@ -135,10 +127,9 @@ def scoreSplitter
             day += 1
             displayTopTeams(day, $topSeeds[0], $topSeeds[1], $topSeeds[2])
         end
-        
     end
 
-    $teamStandings
+    return "Current Leader: #{$topSeeds[0]}"
 
 end
 
